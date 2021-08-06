@@ -15,13 +15,7 @@ require("dotenv").config();
 
 const http = require("http").createServer(app);
 
-const io = require("socket.io")(http, {
-  cors: {
-    origins: "https://chat-lite-two.vercel.app",
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
+const io = require("socket.io")(http);
 
 http.listen(3001, function () {
   console.info("Server is running");
