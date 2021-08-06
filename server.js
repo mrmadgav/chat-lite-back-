@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.options("https://mrmadgav.github.io/chat-lite/", cors());
+app.options("https://chat-lite-two.vercel.app", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -17,7 +17,7 @@ const http = require("http").createServer(app);
 
 const io = require("socket.io")(http, {
   cors: {
-    origins: "https://mrmadgav.github.io/chat-lite/",
+    origins: "https://chat-lite-two.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
