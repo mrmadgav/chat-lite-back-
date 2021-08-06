@@ -15,12 +15,12 @@ require("dotenv").config();
 
 const http = require("http").createServer(app);
 
-const io = require("socket.io")(http, {
+const io = require("socket.io")(http, {  
   cors: {
-    origin: ["https://mrmadgav.github.io/chat-lite/"],
+    origin: "*",
     methods: ["GET", "POST"],
-    credentials: true
-  }
+    allowedHeaders: ["content-type"],
+  },
 });
 
 http.listen(3001, function () {
