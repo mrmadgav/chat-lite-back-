@@ -17,9 +17,9 @@ const http = require("http").createServer(app);
   
 const io = require("socket.io")(http, {  
   cors: {
-    origin: ["https://mrmadgav.github.io/chat-lite/"],
+    origins: "*:*",
     methods: ["GET", "POST"],
-    credentials: true,    
+    allowedHeaders: ["content-type"],
   },
 });
 
