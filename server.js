@@ -14,12 +14,12 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const http = require("http").createServer(app);
-
+  
 const io = require("socket.io")(http, {  
   cors: {
-    origin: "*",
+    origin: ["https://mrmadgav.github.io/chat-lite/"],
     methods: ["GET", "POST"],
-    allowedHeaders: ["content-type"],
+    credentials: true,    
   },
 });
 
