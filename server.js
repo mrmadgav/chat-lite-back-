@@ -9,14 +9,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.options("http://localhost:3000", cors());
+app.options("https://mrmadgav.github.io/chat-lite/", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: ["http://localhost:3002"],
+    origin: ["https://mrmadgav.github.io/chat-lite/"],
   },
 });
 

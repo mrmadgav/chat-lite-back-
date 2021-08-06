@@ -13,6 +13,8 @@ router.post("/registration", express.json(), userCtrl.createUser);
 router.post("/login", express.json(), userCtrl.login);
 router.post("/logout", verifyToken, express.json(), userCtrl.logout);
 
+router.get("/", express.json(), userCtrl.hello);
+
 router.post(
   "/user/messages/send",
   verifyToken,

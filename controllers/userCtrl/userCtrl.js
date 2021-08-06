@@ -240,6 +240,18 @@ const updateMessage = async (req, res, next) => {
   }
 };
 
+const hello = async (req, res, next) => {
+  try {
+    return res.json({
+      status: "success",
+      code: 200,
+      data: "hello world",
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   addAvatar,
   cloudAvatar,
@@ -253,4 +265,5 @@ module.exports = {
   deleteMessage,
   getUsers,
   updateMessage,
+  hello,
 };
