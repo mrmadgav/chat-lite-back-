@@ -25,10 +25,10 @@ const io = require("socket.io")(http, {
   },
 });
 
-http.listen(process.env.PORT || 3000, function () {
-  console.info("Server is running");
-  console.log(io);
-});
+// http.listen(process.env.PORT || 3000, function () {
+//   console.info("Server is running");
+//   console.log(io);
+// });
 io.on("connection", (socket) => {
   console.log("SOCKET", socket);
   console.info("Socket connected", socket.id);
