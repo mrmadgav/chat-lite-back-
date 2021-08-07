@@ -1,29 +1,38 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
+// const express = require("express");
+// const app = express();
+// const cors = require("cors");
 const { UserModel } = require("./models");
 const prettyDate2 = require("./helpers/time");
 
-app.use(cors());
+// app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.options("https://chat-lite-back.herokuapp.com/", cors());
+// app.options("https://chat-lite-back.herokuapp.com/", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const http = require("http").createServer(app);
+// const http = require("http").createServer(app);
 
 // const io = require("socket.io")(http);
 
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "https://chat-lite-back.herokuapp.com/",
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
+// const io = require("socket.io")(http, {
+//   cors: {
+//     origin: "https://chat-lite-back.herokuapp.com/",
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   },
+// });
+
+const PORT = process.env.PORT || 3000;
+const INDEX = "/index.html";
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = socketIO(server);
 
 // const io = require("socket.io")(http, {
 //   cors: {
@@ -33,10 +42,10 @@ const io = require("socket.io")(http, {
 //   },
 // });
 
-http.listen(process.env.PORT || 3000, function () {
-  console.info("Server is running");
-  // console.log(io);
-});
+// http.listen(process.env.PORT || 3000, function () {
+//   console.info("Server is running");
+//   // console.log(io);
+// });
 
 // http.listen(process.env.PORT);
 
