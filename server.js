@@ -15,11 +15,12 @@ require("dotenv").config();
 
 const http = require("http").createServer(app);
 
-const io = require("socket.io")(http);
-
-http.listen("https://chat-lite-two.vercel.app:80", function () {
+const port = process.env.PORT || 3000;
+http.listen(port, function () {
   console.info("Server is running");
 });
+
+const io = require("socket.io")(http);
 
 io.on("connection", (socket) => {
   console.log("Client connected");
