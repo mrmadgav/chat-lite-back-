@@ -1,4 +1,4 @@
-// const express = require("express");
+const express = require("express");
 // const app = express();
 // const cors = require("cors");
 const { UserModel } = require("./models");
@@ -29,7 +29,7 @@ const INDEX = "/index.html";
 
 const app = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(process.env.PORT || 3000, () => console.log(`Listening on ${PORT}`));
+  .listen(process.env.PORT || 3000, () => console.log(`Listening`));
 
 const io = socketIO(server);
 app.use(express.json());
