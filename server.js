@@ -6,8 +6,8 @@ const prettyDate2 = require("./helpers/time");
 
 // app.use(cors());
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 // app.options("https://chat-lite-back.herokuapp.com/", cors());
 const mongoose = require("mongoose");
@@ -27,11 +27,13 @@ require("dotenv").config();
 
 const INDEX = "/index.html";
 
-const server = express()
+const app = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(process.env.PORT || 3000, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // const io = require("socket.io")(http, {
 //   cors: {
