@@ -15,33 +15,22 @@ require("dotenv").config();
 
 const http = require("http").createServer(app);
 
-const port = process.env.PORT;
-http.listen(port, function () {
-  console.info("Server is running");
-});
-
 const io = require("socket.io")(http);
 
-io.on("connection", (socket) => {
-  console.log("Client connected");
-  socket.on("disconnect", () => console.log("Client disconnected"));
+http.listen(process.env.PORT || 3001, function () {
+  console.info("Server is running");
 });
 
 io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
   // socket.broadcast.emit("user:join", socket.id);
 
-  io.on("message:send", (data) => {
+  socket.on("message:send", (data) => {
     const dateMessage = prettyDate2();
     const { nickname, text, id } = data;
     const newData = { nickname, text, id, dateMessage };
-    console.log("получено сообщение от юзера");
     socket.broadcast.emit("message:fromServer", newData);
     socket.emit("message:fromServer", newData);
-  });
-
-  socket.on("message:send", (data) => {
-    console.log("DATA", data);
   });
 
   socket.on("typing", (data) => {
