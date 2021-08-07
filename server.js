@@ -33,7 +33,7 @@ const io = require("socket.io")(http);
 //   },
 // });
 
-http.listen("https://chat-lite-back.herokuapp.com/", function () {
+http.listen("https://chat-lite-back.herokuapp.com/:9444", function () {
   console.info("Server is running");
   // console.log(io);
 });
