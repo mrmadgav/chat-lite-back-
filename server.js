@@ -22,6 +22,11 @@ http.listen(3001, function () {
 });
 
 io.on("connection", (socket) => {
+  console.log("Client connected");
+  socket.on("disconnect", () => console.log("Client disconnected"));
+});
+
+io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
   // socket.broadcast.emit("user:join", socket.id);
 
