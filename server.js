@@ -34,6 +34,10 @@ io.on("connection", (socket) => {
     socket.emit("message:fromServer", newData);
   });
 
+  socket.on("message:send", (data) => {
+    console.log("DATA", data);
+  });
+
   socket.on("typing", (data) => {
     const { user, typing } = data;
     socket.broadcast.emit("userTyping", user, typing);
