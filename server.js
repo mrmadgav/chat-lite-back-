@@ -29,6 +29,7 @@ io.on("connection", (socket) => {
     const dateMessage = prettyDate2();
     const { nickname, text, id } = data;
     const newData = { nickname, text, id, dateMessage };
+    console.log("получено сообщение от юзера");
     socket.broadcast.emit("message:fromServer", newData);
     socket.emit("message:fromServer", newData);
   });
