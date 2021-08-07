@@ -1,21 +1,21 @@
 const express = require("express");
-// const app = express();
+const app = express();
 // const cors = require("cors");
 const { UserModel } = require("./models");
 const prettyDate2 = require("./helpers/time");
 
 // app.use(cors());
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // app.options("https://chat-lite-back.herokuapp.com/", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-// const http = require("http").createServer(app);
+const http = require("http").createServer(app);
 
-// const io = require("socket.io")(http);
+const io = require("socket.io")(http);
 
 // const io = require("socket.io")(http, {
 //   cors: {
@@ -25,15 +25,6 @@ require("dotenv").config();
 //   },
 // });
 
-const INDEX = "/index.html";
-
-const app = express();
-app.listen(process.env.PORT || 3000, () => console.log(`Listening`));
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // const io = require("socket.io")(http, {
 //   cors: {
 //     origin: "*",
@@ -42,10 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 //   },
 // });
 
-// http.listen(process.env.PORT || 3000, function () {
-//   console.info("Server is running");
-//   // console.log(io);
-// });
+http.listen("https://chat-lite-back.herokuapp.com/", function () {
+  console.info("Server is running");
+  // console.log(io);
+});
 
 // http.listen(process.env.PORT);
 
