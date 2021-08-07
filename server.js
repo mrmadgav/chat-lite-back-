@@ -22,6 +22,7 @@ http.listen(3001, function () {
 });
 
 io.on("connection", (socket) => {
+  console.log("SOCKET", socket);
   console.info("Socket connected", socket.id);
   // socket.broadcast.emit("user:join", socket.id);
 
