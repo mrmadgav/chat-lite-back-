@@ -15,7 +15,7 @@ require("dotenv").config();
 
 const http = require("http").createServer(app);
 
-const io = require("socket.io")(http);
+// const io = require("socket.io")(http);
 
 // const io = require("socket.io")(http, {
 //   cors: {
@@ -24,6 +24,14 @@ const io = require("socket.io")(http);
 //     credentials: true,
 //   },
 // });
+
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["content-type"],
+  },
+});
 
 http.listen(process.env.PORT || 3000, function () {
   console.info("Server is running");
