@@ -4,12 +4,12 @@ const cors = require("cors");
 const { UserModel } = require("./models");
 const prettyDate2 = require("./helpers/time");
 
-// app.use(cors());
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.options("https://chat-lite-two.vercel.app", cors());
+app.options("https://chat-lite-back.herokuapp.com/", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
