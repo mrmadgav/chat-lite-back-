@@ -31,7 +31,7 @@ const app = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(process.env.PORT || 3000, () => console.log(`Listening`));
 
-const io = socketIO(server);
+const io = require("socket.io")(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
