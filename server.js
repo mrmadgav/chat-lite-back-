@@ -17,7 +17,7 @@ const http = require("http").createServer(app);
 
 const io = require("socket.io")(http);
 
-http.listen(process.env.PORT || 3001, function () {
+http.listen(3001, function () {
   console.info("Server is running");
 });
 
