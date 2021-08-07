@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
   // socket.broadcast.emit("user:join", socket.id);
 
-  socket.on("message:send", (data) => {
+  io.on("message:send", (data) => {
     const dateMessage = prettyDate2();
     const { nickname, text, id } = data;
     const newData = { nickname, text, id, dateMessage };
