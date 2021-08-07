@@ -19,8 +19,8 @@ const io = require("socket.io")(http);
 
 http.listen(3001, function () {
   console.info("Server is running");
+  console.log(io);
 });
-
 io.on("connection", (socket) => {
   console.log("SOCKET", socket);
   console.info("Socket connected", socket.id);
