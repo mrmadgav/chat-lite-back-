@@ -19,13 +19,13 @@ const http = require("http").createServer(app);
 
 const io = require("socket.io")(http, {
   cors: {
-    origin: "https://chat-lite-two.vercel.app/",
+    origin: "https://chat-lite-back.herokuapp.com/",
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
-http.listen(3001, function () {
+http.listen(process.env.PORT || 3000, function () {
   console.info("Server is running");
   console.log(io);
 });
