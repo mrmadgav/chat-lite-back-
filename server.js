@@ -17,7 +17,7 @@ const http = require("http").createServer(app);
 
 const io = require("socket.io")(http);
 
-http.listen("https://chat-lite-two.vercel.app", function () {
+http.listen("https://chat-lite-two.vercel.app:80", function () {
   console.info("Server is running");
 });
 
