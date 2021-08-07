@@ -27,13 +27,12 @@ require("dotenv").config();
 
 const INDEX = "/index.html";
 
-const app = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(process.env.PORT || 3000, () => console.log(`Listening`));
+const app = express();
+app.listen(process.env.PORT || 3000, () => console.log(`Listening`));
 
 const io = require("socket.io")(app);
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // const io = require("socket.io")(http, {
 //   cors: {
