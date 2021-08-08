@@ -38,7 +38,7 @@ const io = require("socket.io")(http, {
     credentials: true,
   },
 });
-
+io.listen(PORT);
 // const io = require("socket.io")(http, {
 //   cors: {
 //     origin: "https://chat-lite-two.vercel.app/",
