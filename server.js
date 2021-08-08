@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+// const io = require("socket.io")(http);
 
 app.options("https://chat-lite-two.vercel.app/", cors());
 
