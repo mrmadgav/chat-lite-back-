@@ -7,9 +7,8 @@
 const ServerPORT = process.env.PORT || 3000;
 
 const express = require("express");
-const app = express().listen(ServerPORT, () =>
-  console.log(`Listening on ${ServerPORT}`)
-);
+const app = express();
+app.listen(ServerPORT, () => console.log(`Listening on ${ServerPORT}`));
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
