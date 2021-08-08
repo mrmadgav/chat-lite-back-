@@ -23,7 +23,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const http = require("http").createServer(app);
 
-// app.options("https://chat-lite-two.vercel.app/", cors());
+app.options("https://chat-lite-two.vercel.app", cors());
 
 const mongoose = require("mongoose");
 require("dotenv").config();
