@@ -32,7 +32,7 @@ require("dotenv").config();
 
 const io = require("socket.io")(http, {
   cors: {
-    origin: `"https://chat-lite-two.vercel.app:${PORT}"`,
+    origin: "https://chat-lite-two.vercel.app",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
