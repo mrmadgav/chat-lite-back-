@@ -25,21 +25,21 @@ require("dotenv").config();
 
 // const io = require("socket.io")(http);
 
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "https://chat-lite-two.vercel.app/",
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
-
 // const io = require("socket.io")(http, {
 //   cors: {
-//     origin: "*",
+//     origin: "https://chat-lite-two.vercel.app/",
 //     methods: ["GET", "POST"],
-//     allowedHeaders: ["content-type"],
+//     credentials: true,
 //   },
 // });
+
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["content-type"],
+  },
+});
 
 // http.listen("https://chat-lite-back.herokuapp.com/:9444", function () {
 //   console.info("Server is running");
