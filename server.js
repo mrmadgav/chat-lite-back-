@@ -52,6 +52,8 @@ const { UserModel } = require("./models");
 const prettyDate2 = require("./helpers/time");
 const express = require("express");
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const socketIO = require("socket.io");
 const { PORT, DB_HOST } = process.env;
 const server = express()
