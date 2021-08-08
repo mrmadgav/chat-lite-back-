@@ -16,8 +16,6 @@ const addAvatar = (file) => {
 };
 
 const createUser = async ({ email, password, nickname }) => {
-  // const newUser = new UserModel({ email, password });
-  // newUser.setPassword(password);
 
   try {
     await UserModel.create({ email, password, nickname });
