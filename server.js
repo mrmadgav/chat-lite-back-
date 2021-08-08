@@ -1,36 +1,31 @@
-// const express = require("express");
-// const app = express();
+const express = require("express");
+const app = express();
 const cors = require("cors");
 const { UserModel } = require("./models");
 const prettyDate2 = require("./helpers/time");
 
 const { PORT, DB_HOST } = process.env;
 
-const express = require("express");
-const app = express();
-
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
 //   next();
 // });
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const http = require("http").createServer(app);
-app.use(cors());
-// const io = require("socket.io")(http);
+const io = require("socket.io")(http);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.options("https://chat-lite-two.vercel.app/", cors());
 
-// // app.options("https://chat-lite-back.herokuapp.com/", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-// const http = require("http").createServer(app);
-
-// const io = require("socket.io")(http);
+const io = require("socket.io")(http);
 
 // const io = require("socket.io")(http, {
 //   cors: {
@@ -40,13 +35,13 @@ require("dotenv").config();
 //   },
 // });
 
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "https://chat-lite-two.vercel.app/",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["content-type"],
-  },
-});
+// const io = require("socket.io")(http, {
+//   cors: {
+//     origin: "https://chat-lite-two.vercel.app/",
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["content-type"],
+//   },
+// });
 
 io.on("connection", (socket) => {
   console.log("SOCKET", socket);
