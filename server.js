@@ -90,6 +90,9 @@ io.on("connection", (socket) => {
     socket.emit("DeletingMessage", id);
     socket.broadcast.emit("DeletingMessage", id);
   });
+  socket.on("message:edited", () => {
+    socket.broadcast.emit("User edit message");
+  });
 });
 
 function getSocketIo() {
