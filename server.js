@@ -1,8 +1,8 @@
 // const express = require("express");
 // const app = express();
-// const cors = require("cors");
-// const { UserModel } = require("./models");
-// const prettyDate2 = require("./helpers/time");
+const cors = require("cors");
+const { UserModel } = require("./models");
+const prettyDate2 = require("./helpers/time");
 
 const { PORT, DB_HOST } = process.env;
 
@@ -18,7 +18,7 @@ const app = express();
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const http = require("http").createServer(app);
-// // app.use(cors());
+app.use(cors());
 // const io = require("socket.io")(http);
 
 app.use(express.json());
@@ -47,13 +47,6 @@ const io = require("socket.io")(http, {
     allowedHeaders: ["content-type"],
   },
 });
-
-// http.listen("https://chat-lite-back.herokuapp.com/:9444", function () {
-//   console.info("Server is running");
-//   // console.log(io);
-// });
-
-// http.listen(process.env.PORT);
 
 io.on("connection", (socket) => {
   console.log("SOCKET", socket);
