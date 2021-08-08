@@ -1,51 +1,60 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const { UserModel } = require("./models");
-const prettyDate2 = require("./helpers/time");
+// const express = require("express");
+// const app = express();
+// const cors = require("cors");
+// const { UserModel } = require("./models");
+// const prettyDate2 = require("./helpers/time");
 
-const { PORT, DB_HOST } = process.env;
+// const { PORT, DB_HOST } = process.env;
 
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-// });
+// // app.use(function (req, res, next) {
+// //   res.header("Access-Control-Allow-Origin", "*");
+// //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+// //   next();
+// // });
 
-app.use(
-  cors({ credentials: true, origin: "https://chat-lite-two.vercel.app" })
-);
+// app.use(
+//   cors({ credentials: true, origin: "https://chat-lite-two.vercel.app" })
+// );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const http = require("http").createServer(app);
+// const http = require("http").createServer(app);
 
-app.options("https://chat-lite-two.vercel.app", cors());
+// app.options("https://chat-lite-two.vercel.app", cors());
 
-const mongoose = require("mongoose");
-require("dotenv").config();
+// const mongoose = require("mongoose");
+// require("dotenv").config();
 
-// const io = require("socket.io")(http);
-
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "https://chat-lite-two.vercel.app",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
-  },
-});
+// // const io = require("socket.io")(http);
 
 // const io = require("socket.io")(http, {
 //   cors: {
-//     origin: "https://chat-lite-two.vercel.app/",
+//     origin: "https://chat-lite-two.vercel.app",
 //     methods: ["GET", "POST"],
-//     allowedHeaders: ["content-type"],
+//     allowedHeaders: ["my-custom-header"],
+//     credentials: true,
 //   },
 // });
+
+// // const io = require("socket.io")(http, {
+// //   cors: {
+// //     origin: "https://chat-lite-two.vercel.app/",
+// //     methods: ["GET", "POST"],
+// //     allowedHeaders: ["content-type"],
+// //   },
+// // });
+
+const app = express();
+const socketIO = require("socket.io");
+const { PORT, DB_HOST } = process.env;
+const server = express()
+  .use(app)
+  .listen(PORT, () => console.log(`Listening Socket on ${PORT}`));
+
+const io = socketIO(server);
 
 io.on("connection", (socket) => {
   console.log("SOCKET", socket);
