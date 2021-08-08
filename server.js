@@ -4,10 +4,12 @@
 // const { UserModel } = require("./models");
 // const prettyDate2 = require("./helpers/time");
 
-const PORT = process.env.PORT || 3000;
+const ServerPORT = process.env.PORT || 3000;
 
 const express = require("express");
-const app = express().listen(PORT, () => console.log(`Listening on ${PORT}`));
+const app = express().listen(ServerPORT, () =>
+  console.log(`Listening on ${ServerPORT}`)
+);
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
