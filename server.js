@@ -60,7 +60,7 @@ const server = express()
   .use(app)
   .listen(PORT, () => console.log(`Listening Socket on ${PORT}`));
 
-const io = socketIO(server);
+const io = socketIO(server, { transports: ["websocket"] });
 
 io.on("connection", (socket) => {
   console.log("SOCKET", socket);
