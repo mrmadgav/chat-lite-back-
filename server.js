@@ -46,6 +46,10 @@
 // //     allowedHeaders: ["content-type"],
 // //   },
 // // });
+const mongoose = require("mongoose");
+require("dotenv").config();
+const { UserModel } = require("./models");
+const prettyDate2 = require("./helpers/time");
 const express = require("express");
 const app = express();
 const socketIO = require("socket.io");
