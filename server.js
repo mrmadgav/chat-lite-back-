@@ -25,15 +25,15 @@ app.options("https://chat-lite-two.vercel.app/", cors());
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const io = require("socket.io")(http);
+// const io = require("socket.io")(http);
 
-// const io = require("socket.io")(http, {
-//   cors: {
-//     origin: "https://chat-lite-two.vercel.app/",
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   },
-// });
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "https://chat-lite-two.vercel.app/",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
 // const io = require("socket.io")(http, {
 //   cors: {
