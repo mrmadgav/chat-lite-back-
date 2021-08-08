@@ -12,7 +12,10 @@ const { PORT, DB_HOST } = process.env;
 //   next();
 // });
 
-app.use(cors());
+app.use(
+  cors({ credentials: true, origin: "https://chat-lite-two.vercel.app/" })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,14 +30,7 @@ require("dotenv").config();
 
 // const io = require("socket.io")(http);
 
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "https://chat-lite-two.vercel.app/",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
-  },
-});
+const io = require("socket.io")(http);
 
 // const io = require("socket.io")(http, {
 //   cors: {
