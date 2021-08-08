@@ -13,7 +13,7 @@ const { PORT, DB_HOST } = process.env;
 // });
 
 app.use(
-  cors({ credentials: true, origin: "https://chat-lite-two.vercel.app" })
+  cors({ credentials: true, origin: "https://chat-lite-two.vercel.app/" })
 );
 
 app.use(express.json());
