@@ -100,9 +100,9 @@ const dbConnection = mongoose.connect(DB_HOST, {
 dbConnection
   .then(() => {
     console.info("DB connect");
-    app.listen(PORT || 3000, () => {
-      console.info("server running");
-    });
+    // app.listen(PORT || 3000, () => {
+    //   console.info("server running");
+    // });
   })
   .catch((err) => {
     console.error(err);
