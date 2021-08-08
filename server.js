@@ -4,11 +4,11 @@
 // const { UserModel } = require("./models");
 // const prettyDate2 = require("./helpers/time");
 
-const ServerPORT = process.env.PORT || 3000;
+const { PORT, DB_HOST } = process.env;
 
 const express = require("express");
 const app = express();
-app.listen(ServerPORT, () => console.log(`Listening on ${ServerPORT}`));
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
@@ -89,8 +89,6 @@ app.use((err, _, res, __) => {
     message: err.message,
   });
 });
-
-const { PORT, DB_HOST } = process.env;
 
 const dbConnection = mongoose.connect(DB_HOST, {
   useNewUrlParser: true,
