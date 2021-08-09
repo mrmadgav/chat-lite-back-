@@ -29,6 +29,7 @@ io.on("connection", (socket) => {
     const dateMessage = prettyDate2();
     const { nickname, text, id } = data;
     const newData = { nickname, text, id, dateMessage };
+    socket.emit("message:fromServer", newData);
     socket.broadcast.emit("message:fromServer", newData);
   });
 
