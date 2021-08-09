@@ -30,7 +30,8 @@ io.on("connection", (socket) => {
     const { nickname, text, id } = data;
     const newData = { nickname, text, id, dateMessage };
     // socket.emit("message:fromServer", newData);
-    socket.broadcast.emit("message:fromServer", newData);
+    socket.emit("message:fromServer", newData);
+    // socket.broadcast.emit("message:fromServer", newData);
   });
 
   socket.on("typing", (data) => {
