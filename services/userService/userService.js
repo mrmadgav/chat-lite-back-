@@ -138,19 +138,7 @@ const sendMessage = async (nickname, text, id) => {
         { _id: "60f16573d79d8bd0cb45deac" },
         { $push: { messages: { ...message, nickname } } },
         { new: false }
-      );
-
-      const server = require("../../server");
-      const io = server.io;
-
-      io.on((socket) => {
-        socket.on("message:send", (data) => {
-          const dateMessage = prettyDate2();
-          const { nickname, text, id } = data;
-          const newData = { nickname, text, id, dateMessage };
-          socket.broadcast.emit("message:fromServer", newData);
-        });
-      });
+      );  
 
       return result, toHistory;
     } catch (e) {
