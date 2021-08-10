@@ -138,9 +138,10 @@ const sendMessage = async (nickname, text, id) => {
         { _id: "60f16573d79d8bd0cb45deac" },
         { $push: { messages: { ...message, nickname } } },
         { new: false }
-      );  
-
-      return result, toHistory;
+      );
+      const server = require("../../server");
+      const io = server.getSocketIo();
+      return result, toHistory, io.emit("message:fromServer");
     } catch (e) {
       console.error(e);
     }
@@ -158,8 +159,6 @@ const deleteMessage = async (id) => {
 };
 
 const updateMessage = async (id, text) => {
-  console.log("THIS");
-
   try {
     const result = await historyModel.updateOne(
       { _id: "60f16573d79d8bd0cb45deac", "messages.id": id },
