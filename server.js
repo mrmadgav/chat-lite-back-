@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("userStoppedTyping");
   });
   socket.on("message:delete", (id) => {
-    socket.emit("DeletingMessage", id);
+    socket.broadcast.emit("DeletingMessage", id);
     // socket.broadcast.emit("DeletingMessage", id);
   });
   socket.on("message:edited", () => {
