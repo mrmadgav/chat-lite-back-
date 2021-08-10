@@ -29,22 +29,22 @@ io.on("connection", (socket) => {
     const dateMessage = prettyDate2();
     const { nickname, text, id } = data;
     const newData = { nickname, text, id, dateMessage };
-    socket.broadcast.emit("message:fromServer", newData);
+    socket.emit("message:fromServer", newData);
   });
 
   socket.on("typing", (data) => {
     const { user, typing } = data;
-    socket.broadcast.emit("userTyping", user, typing);
+    socket.emit("userTyping", user, typing);
   });
   socket.on("stopTyping", () => {
-    socket.broadcast.emit("userStoppedTyping");
+    socket.emit("userStoppedTyping");
   });
   socket.on("message:delete", (id) => {
     socket.emit("DeletingMessage", id);
     // socket.broadcast.emit("DeletingMessage", id);
   });
   socket.on("message:edited", () => {
-    socket.broadcast.emit("User edit message");
+    socket.emit("User edit message");
   });
 });
 
