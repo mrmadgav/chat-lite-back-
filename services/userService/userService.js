@@ -139,7 +139,10 @@ const sendMessage = async (nickname, text, id) => {
         { $push: { messages: { ...message, nickname } } },
         { new: false }
       );
-      const io = server.getSocketIo();
+
+      const server = require("../../server");
+      const io = server.io;
+
       io.on("connection", (socket) => {
         socket.on("message:send", (data) => {
           const dateMessage = prettyDate2();
