@@ -19,8 +19,6 @@ const server = express()
   .use(app)
   .listen(PORT, () => console.log(`Listening Socket on ${PORT}`));
 
-export const io = socketIO(server, { transports: ["websocket"] });
-
 io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
   socket.broadcast.emit("user:join", socket.id);
@@ -47,11 +45,12 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("User edit message");
   });
 });
+module.exports.getSocketIo = getSocketIo;
 
 function getSocketIo() {
   return io;
 }
-module.exports.getSocketIo = getSocketIo;
+module.exports.io = io;
 
 const { userApi } = require("./api/userApi");
 app.use("/", userApi);
