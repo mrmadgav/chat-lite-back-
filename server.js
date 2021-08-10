@@ -19,18 +19,18 @@ const server = express()
   .use(app)
   .listen(PORT, () => console.log(`Listening Socket on ${PORT}`));
 
-const io = socketIO(server, { transports: ["websocket"] });
+export const io = socketIO(server, { transports: ["websocket"] });
 
 io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
   socket.broadcast.emit("user:join", socket.id);
 
-  socket.on("message:send", (data) => {
-    const dateMessage = prettyDate2();
-    const { nickname, text, id } = data;
-    const newData = { nickname, text, id, dateMessage };
-    socket.broadcast.emit("message:fromServer", newData);
-  });
+  // socket.on("message:send", (data) => {
+  //   const dateMessage = prettyDate2();
+  //   const { nickname, text, id } = data;
+  //   const newData = { nickname, text, id, dateMessage };
+  //   socket.broadcast.emit("message:fromServer", newData);
+  // });
 
   socket.on("typing", (data) => {
     const { user, typing } = data;
@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
   });
   socket.on("message:delete", (id) => {
     socket.emit("DeletingMessage", id);
-    socket.broadcast.emit("DeletingMessage", id);
+    // socket.broadcast.emit("DeletingMessage", id);
   });
   socket.on("message:edited", () => {
     socket.broadcast.emit("User edit message");

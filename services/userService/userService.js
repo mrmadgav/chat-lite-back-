@@ -3,6 +3,7 @@ const { historyModel } = require("../../models");
 const prettyDate2 = require("../../helpers/time");
 const cloudinary = require("cloudinary").v2;
 const { nanoid } = require("nanoid");
+const io = require("../../server");
 
 cloudinary.config({
   cloud_name: "madgav",
@@ -16,7 +17,6 @@ const addAvatar = (file) => {
 };
 
 const createUser = async ({ email, password, nickname }) => {
-
   try {
     await UserModel.create({ email, password, nickname });
   } catch (error) {
@@ -139,6 +139,16 @@ const sendMessage = async (nickname, text, id) => {
         { $push: { messages: { ...message, nickname } } },
         { new: false }
       );
+
+      io.on("connection", (socket) => {
+        socket.on("message:send", (data) => {
+          const dateMessage = prettyDate2();
+          const { nickname, text, id } = data;
+          const newData = { nickname, text, id, dateMessage };
+          socket.broadcast.emit("message:fromServer", newData);
+        });
+      });
+
       return result, toHistory;
     } catch (e) {
       console.error(e);
