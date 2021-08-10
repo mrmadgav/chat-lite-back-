@@ -143,7 +143,7 @@ const sendMessage = async (nickname, text, id) => {
       const server = require("../../server");
       const io = server.io;
 
-      io.on("connection", (socket) => {
+      io.on((socket) => {
         socket.on("message:send", (data) => {
           const dateMessage = prettyDate2();
           const { nickname, text, id } = data;
