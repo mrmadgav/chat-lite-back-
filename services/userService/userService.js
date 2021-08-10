@@ -3,7 +3,7 @@ const { historyModel } = require("../../models");
 const prettyDate2 = require("../../helpers/time");
 const cloudinary = require("cloudinary").v2;
 const { nanoid } = require("nanoid");
-const io = require("../../server");
+// const io = require("../../server");
 
 cloudinary.config({
   cloud_name: "madgav",
@@ -139,7 +139,7 @@ const sendMessage = async (nickname, text, id) => {
         { $push: { messages: { ...message, nickname } } },
         { new: false }
       );
-
+      const io = server.getSocketIo();
       io.on("connection", (socket) => {
         socket.on("message:send", (data) => {
           const dateMessage = prettyDate2();

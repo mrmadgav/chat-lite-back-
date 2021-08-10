@@ -50,7 +50,7 @@ module.exports.getSocketIo = getSocketIo;
 function getSocketIo() {
   return io;
 }
-module.exports.io = io;
+
 
 const { userApi } = require("./api/userApi");
 app.use("/", userApi);
