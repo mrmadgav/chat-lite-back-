@@ -5,6 +5,9 @@ const cloudinary = require("cloudinary").v2;
 const { nanoid } = require("nanoid");
 // const io = require("../../server");
 
+const server = require("../../server");
+const io = server.getSocketIo();
+
 cloudinary.config({
   cloud_name: "madgav",
   api_key: "269245158734516",
@@ -139,8 +142,6 @@ const sendMessage = async (nickname, text, id) => {
         { $push: { messages: { ...message, nickname } } },
         { new: false }
       );
-      const server = require("../../server");
-      const io = server.getSocketIo();
       return result, toHistory, io.emit("message:fromServer");
     } catch (e) {
       console.error(e);
@@ -153,6 +154,7 @@ const deleteMessage = async (id) => {
     const result = await historyModel.findOneAndUpdate({
       $pull: { messages: { id: id } },
     });
+    return io.emit("DeletingMessage");
   } catch (e) {
     console.error(e);
   }
@@ -164,6 +166,7 @@ const updateMessage = async (id, text) => {
       { _id: "60f16573d79d8bd0cb45deac", "messages.id": id },
       { $set: { "messages.$.text": text } }
     );
+    return io.emit("User edit message");
   } catch (e) {
     console.error(e);
   }
