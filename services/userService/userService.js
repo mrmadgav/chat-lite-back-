@@ -188,7 +188,7 @@ const uploadImg = (userId, file, nickname) => {
       const { secure_url } = result;
       const imgCroppedUrl = secure_url.replace(
         "upload/",
-        "upload/c_fill,w_200/"
+        "upload/c_fill,w_300/"
       );
       const message = { text: imgCroppedUrl, date: prettyDate2(), id: userId };
       const toHistory = await historyModel.findOneAndUpdate(
