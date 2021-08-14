@@ -134,6 +134,7 @@ const fetchMessages = async () => {
 
 const sendMessage = async (nickname, text, id) => {
   const message = { text: text, date: prettyDate2(), id: id };
+  console.log(message);
   if (nickname) {
     try {
       const result = await UserModel.findOneAndUpdate(
