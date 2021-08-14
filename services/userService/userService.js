@@ -196,7 +196,7 @@ const uploadImg = (userId, file, nickname) => {
         { $push: { messages: { ...message, userId, nickname } } },
         { new: false }
       );
-      return result, toHistory;
+      return result, toHistory, io.emit("message:fromServer");
     }
   );
 };
