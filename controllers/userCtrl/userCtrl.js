@@ -240,6 +240,27 @@ const updateMessage = async (req, res, next) => {
   }
 };
 
+const uploadImg = async (req, res, next) => {
+  try {
+    const token = String(req.body.token);
+    const incomeToken = req.headers.authorization.slice(7);
+    const user = await userService.findUserByToken(incomeToken);
+    const filePath = req.file.path;
+
+    let imgUrl = await userService.uploadImg(user.id, filePath);
+
+    return res.json({
+      status: "Success",
+      code: 200,
+      data: {
+        imgUrl,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const hello = async (req, res, next) => {
   try {
     return res.json({
@@ -265,5 +286,6 @@ module.exports = {
   deleteMessage,
   getUsers,
   updateMessage,
+  uploadImg,
   hello,
 };

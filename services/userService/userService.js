@@ -178,6 +178,29 @@ const updateMessage = async (id, text) => {
   }
 };
 
+const uploadImg = (userId, file) => {
+  cloudinary.uploader.upload(
+    file,
+    {
+      folder: `/files/${userId}`,
+    },
+    async function (error, result) {
+      const { secure_url } = result;
+      const imgCroppedUrl = secure_url.replace(
+        "upload/",
+        "upload/c_fill,w_200/"
+      );
+      const message = { text: imgCroppedUrl, date: prettyDate2(), id: userId };
+      const toHistory = await historyModel.findOneAndUpdate(
+        { _id: "60f16573d79d8bd0cb45deac" },
+        { $push: { messages: { ...message, userId } } },
+        { new: false }
+      );
+      return result, toHistory;
+    }
+  );
+};
+
 module.exports = {
   addAvatar,
   createUser,
@@ -193,4 +216,5 @@ module.exports = {
   getUsers,
   setOnline,
   updateMessage,
+  uploadImg,
 };

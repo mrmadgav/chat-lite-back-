@@ -56,4 +56,6 @@ router.post(
   userCtrl.updateMessage
 );
 
+router.post("/img", verifyToken, upload.single("img"), userCtrl.uploadImg);
+
 module.exports = router;
