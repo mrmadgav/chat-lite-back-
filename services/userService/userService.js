@@ -50,15 +50,21 @@ const cloudAvatar = (userId, file) => {
     file,
     {
       folder: "Avatars",
-      width: 250,
+      width: 100,
+      height: 100,
       crop: "fill",
     },
     async function (error, result) {
       const { secure_url } = result;
+      const avatarCroppedUrl = secure_url.replace(
+        "upload/",
+        "upload/c_fill,w_150,h_150/"
+      );
+
       const avatar = await UserModel.findOneAndUpdate(
         { _id: userId },
         {
-          urlAvatar: secure_url,
+          urlAvatar: avatarCroppedUrl,
         }
       );
     }
