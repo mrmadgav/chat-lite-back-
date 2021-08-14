@@ -178,7 +178,7 @@ const updateMessage = async (id, text) => {
   }
 };
 
-const uploadImg = (userId, file) => {
+const uploadImg = (userId, file, nickname) => {
   cloudinary.uploader.upload(
     file,
     {
@@ -193,7 +193,7 @@ const uploadImg = (userId, file) => {
       const message = { text: imgCroppedUrl, date: prettyDate2(), id: userId };
       const toHistory = await historyModel.findOneAndUpdate(
         { _id: "60f16573d79d8bd0cb45deac" },
-        { $push: { messages: { ...message, userId } } },
+        { $push: { messages: { ...message, userId, nickname } } },
         { new: false }
       );
       return result, toHistory;
