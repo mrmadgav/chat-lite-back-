@@ -116,7 +116,10 @@ const getuserNick = async (userId) => {
 
 const getUsers = async () => {
   try {
-    const result = await UserModel.find({}, { nickname: 1, isOnline: 1 });
+    const result = await UserModel.find(
+      {},
+      { nickname: 1, isOnline: 1, urlAvatar: 1 }
+    );
     return result;
   } catch (e) {
     console.error(e);
