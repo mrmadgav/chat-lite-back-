@@ -217,7 +217,7 @@ const fetchPrivateHistory = async (roomid) => {
       result
         ? (response = result)
         : (response = await privateHistoryModel.create({ _id: roomid }));
-      return response;
+      return response, { result: result };
     } catch (e) {
       console.error(e);
     }
