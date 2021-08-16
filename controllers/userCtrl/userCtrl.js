@@ -264,7 +264,7 @@ const uploadImg = async (req, res, next) => {
 
 const fetchPrivateHistory = async (req, res, next) => {
   console.log("Req.body в FetchPrivateHistory", req.body);
-  const { roomid } = req.body;
+  const { roomid } = req.query;
   try {
     const result = await userService.fetchPrivateHistory(roomid);
     return res.json({
