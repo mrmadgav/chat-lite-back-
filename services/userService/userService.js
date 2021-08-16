@@ -1,5 +1,5 @@
 const { UserModel } = require("../../models");
-const { historyModel } = require("../../models");
+const { historyModel, privateHistoryModel } = require("../../models");
 const prettyDate2 = require("../../helpers/time");
 const cloudinary = require("cloudinary").v2;
 const { nanoid } = require("nanoid");
@@ -211,10 +211,11 @@ const uploadImg = (userId, file, nickname, id) => {
 
 const fetchPrivateHistory = async (roomid) => {
   if (roomid) {
+    const result = await privateHistoryModel.findById(roomid);
     try {
-      const result = await historyModel.findById(roomid);
-
-      return result;
+      const response;
+      result ? (response = result) : (response = await privateHistoryModel.create({_id : roomid}));
+      return response;
     } catch (e) {
       console.error(e);
     }
