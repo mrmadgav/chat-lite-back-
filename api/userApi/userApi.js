@@ -58,6 +58,6 @@ router.post(
 
 router.post("/img", verifyToken, upload.single("img"), userCtrl.uploadImg);
 
-router.get("/privateHistory", userCtrl.fetchPrivateHistory);
+router.get("/privateHistory", express.json(), userCtrl.fetchPrivateHistory);
 
 module.exports = router;
