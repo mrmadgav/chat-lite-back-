@@ -14,7 +14,7 @@ const privateHistorySchema = new Schema(
       default: [],
     },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true, _id: false }
 );
 
 const privateHistoryModel = model("privateHistory", privateHistorySchema);
