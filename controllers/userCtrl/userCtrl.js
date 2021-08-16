@@ -263,10 +263,10 @@ const uploadImg = async (req, res, next) => {
 };
 
 const fetchPrivateHistory = async (req, res, next) => {
-  console.log("Req.query в FetchPrivateHistory", req.query);
-  const { roomid } = req.query;
+  console.log("RoomId в FetchPrivateHistory", req.query.roomId);
+
   try {
-    const result = await userService.fetchPrivateHistory(roomid);
+    const result = await userService.fetchPrivateHistory(req.query.roomId);
     return res.json({
       status: "success",
       code: 200,
