@@ -209,6 +209,18 @@ const uploadImg = (userId, file, nickname, id) => {
   );
 };
 
+const fetchPrivateHistory = async (roomid) => {
+  if (roomid) {
+    try {
+      const result = await historyModel.findById(roomid);
+
+      return result;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+};
+
 module.exports = {
   addAvatar,
   createUser,
@@ -225,4 +237,5 @@ module.exports = {
   setOnline,
   updateMessage,
   uploadImg,
+  fetchPrivateHistory,
 };

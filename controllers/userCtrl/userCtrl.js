@@ -262,6 +262,21 @@ const uploadImg = async (req, res, next) => {
   }
 };
 
+const fetchPrivateHistory = async (req, res, next) => {
+  console.log("Req.body в FetchPrivateHistory", req.body);
+  const { roomid } = req.body;
+  try {
+    const result = await userService.fetchPrivateHistory(roomid);
+    return res.json({
+      status: "success",
+      code: 200,
+      data: result,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 const hello = async (req, res, next) => {
   try {
     return res.json({
@@ -288,5 +303,6 @@ module.exports = {
   getUsers,
   updateMessage,
   uploadImg,
+  fetchPrivateHistory,
   hello,
 };

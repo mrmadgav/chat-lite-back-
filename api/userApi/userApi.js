@@ -58,4 +58,6 @@ router.post(
 
 router.post("/img", verifyToken, upload.single("img"), userCtrl.uploadImg);
 
+router.get("/privateHistory", userCtrl.fetchPrivateHistory);
+
 module.exports = router;
