@@ -17,6 +17,6 @@ const privateHistorySchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const privateHistoryModel = model("message", privateHistorySchema);
+const privateHistoryModel = model("privateHistory", privateHistorySchema);
 
 module.exports = privateHistoryModel;
