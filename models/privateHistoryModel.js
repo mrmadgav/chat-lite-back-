@@ -6,7 +6,7 @@ const privateHistorySchema = new Schema(
       type: String,
       default: "",
       required: true,
-      unique: true,
+      //   unique: true,
     },
 
     messages: {
@@ -14,7 +14,7 @@ const privateHistorySchema = new Schema(
       default: [],
     },
   },
-  { versionKey: false, timestamps: true, _id: false }
+  { versionKey: false, timestamps: true }
 );
 
 const privateHistoryModel = model("privateHistory", privateHistorySchema);
