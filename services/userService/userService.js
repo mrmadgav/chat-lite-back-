@@ -213,7 +213,7 @@ const fetchPrivateHistory = async (roomid) => {
   if (roomid) {
     const result = await privateHistoryModel.findById(roomid);
     try {
-      const response = null;
+      let response = null;
       result
         ? (response = result)
         : (response = await privateHistoryModel.create({ _id: roomid }));
