@@ -212,7 +212,6 @@ const updateMessage = async (id, text, roomId) => {
 };
 
 const uploadImg = (userId, file, nickname, roomId) => {
-  const result = await privateHistoryModel.findById(roomid);
   cloudinary.uploader.upload(
     file,
     {
@@ -229,8 +228,9 @@ const uploadImg = (userId, file, nickname, roomId) => {
         date: prettyDate2(),
         id: nanoid(),
       };
+      const result = await privateHistoryModel.findById(roomid);
       const toHistory = !roomId
-        ? await historyModel.findOneAndUpdate(
+      ? await historyModel.findOneAndUpdate(
             { _id: "60f16573d79d8bd0cb45deac" },
             { $push: { messages: { ...message, nickname } } },
             { new: false }
