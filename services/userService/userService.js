@@ -216,7 +216,6 @@ const fetchPrivateHistory = async (roomid) => {
     function reverseRoomId(roomid) {
       const firstPart = roomid.substr(0, roomid.length / 2 - 1);
       const secondPart = roomid.substr(roomid.length / 2);
-      console.log(splitStr);
       newStr = [secondPart, firstPart].join("");
       console.log("newStr", newStr);
       return newStr;
