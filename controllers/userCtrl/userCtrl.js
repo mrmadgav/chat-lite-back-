@@ -253,6 +253,7 @@ const uploadImg = async (req, res, next) => {
     const incomeToken = req.headers.authorization.slice(7);
     const user = await userService.findUserByToken(incomeToken);
     const filePath = req.body.formData.file.path;
+    console.log(req.body.formData.file);
 
     let imgUrl = await userService.uploadImg(
       user.id,
