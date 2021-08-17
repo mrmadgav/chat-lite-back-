@@ -56,7 +56,7 @@ router.post(
   userCtrl.updateMessage
 );
 
-router.post("/img", verifyToken, upload.single("img"), userCtrl.uploadImg);
+router.post("/img?query", verifyToken, upload.single("img"), userCtrl.uploadImg);
 
 router.get("/privateHistory", express.json(), userCtrl.fetchPrivateHistory);
 
