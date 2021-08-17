@@ -244,7 +244,9 @@ const fetchPrivateHistory = async (roomid) => {
       const firstPart = roomid.substr(0, roomid.length / 2 - 1);
       const secondPart = roomid.substr(roomid.length / 2);
       newStr = [secondPart, firstPart].join("");
-      console.log(newStr);
+      console.log("firstPart", firstPart);
+      console.log("secondPart", secondPart);
+      console.log("newStr", newStr);
       return newStr;
     }
 
@@ -255,8 +257,6 @@ const fetchPrivateHistory = async (roomid) => {
     try {
       console.log("result", result);
       console.log("reverseSearch", reverseSearch);
-      console.log(roomid === result);
-      console.log(roomid === newStr);
 
       let response = null;
       result
