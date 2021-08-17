@@ -159,6 +159,8 @@ const sendMessage = async (nickname, text, id, roomId) => {
         async () => {
           console.log("ЗАШЛИ В ВЫБОР АЙДИШНИКА КОМНАТЫ, КУДА ОТПРАВЛЯТЬ СООБЩЕНИЕ")
           const result = await privateHistoryModel.findById(roomid);
+          console.log("RESULT",result);
+          console.log("reverseRoomId(roomid)",reverseRoomId(roomid));
           const toHistory = await privateHistoryModel.findOneAndUpdate(
             { _id: result ? roomId : reverseRoomId(roomid) },
             { $push: { messages: { ...message, nickname } } },
