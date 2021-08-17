@@ -213,13 +213,15 @@ const fetchMessages = async (req, res, next) => {
 };
 
 const deleteMessage = async (req, res, next) => {
+  console.log("req.body в Контроллере", req.body);
   try {
     const id = req.body.id;
-    const roomId = req.body.roomId
+    const roomId = req.body.roomId;
     const result = await userService.deleteMessage(id, roomId);
     return res.json({
       status: "success",
       code: 200,
+      data: result,
     });
   } catch (e) {
     next(e);
