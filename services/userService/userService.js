@@ -147,6 +147,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
   const message = { text: text, date: prettyDate2(), id: id };
   if (nickname) {
     try {
+      roomId = roomId;
       if (!roomId) {
         !historyModel.findOne() && historyModel.create();
         const toHistory = await historyModel.findOneAndUpdate(
