@@ -228,20 +228,20 @@ const uploadImg = (userId, file, nickname, roomId) => {
         date: prettyDate2(),
         id: nanoid(),
       };
-      const result = await privateHistoryModel.findById(roomid);
+      const searchResult = await privateHistoryModel.findById(roomid);
       const toHistory = !roomId
-      ? await historyModel.findOneAndUpdate(
+        ? await historyModel.findOneAndUpdate(
             { _id: "60f16573d79d8bd0cb45deac" },
             { $push: { messages: { ...message, nickname } } },
             { new: false }
           )
         : await privateHistoryModel.findOneAndUpdate(
-            { _id: result ? roomId : reverseRoomId(roomid) },
+            { _id: searchResult ? roomId : reverseRoomId(roomid) },
             { $push: { messages: { ...message, nickname } } },
             { new: false }
           );
       return (
-        result,
+        searchResult,
         toHistory,
         !roomId
           ? io.emit("message:fromServer")
