@@ -157,6 +157,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
         return toHistory, io.emit("message:fromServer");
       } else
         async () => {
+          console.log("ЗАШЛИ В ВЫБОР АЙДИШНИКА КОМНАТЫ, КУДА ОТПРАВЛЯТЬ СООБЩЕНИЕ")
           const result = await privateHistoryModel.findById(roomid);
           const toHistory = await privateHistoryModel.findOneAndUpdate(
             { _id: result ? roomId : reverseRoomId(roomid) },
