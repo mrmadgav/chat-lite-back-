@@ -15,6 +15,14 @@ cloudinary.config({
   secure: true,
 });
 
+//Функция проверки на перевернутый номер комнаты(важно!)
+function reverseRoomId(roomid) {
+  const firstPart = roomid.substr(0, roomid.length / 2);
+  const secondPart = roomid.substr(roomid.length / 2);
+  newStr = [secondPart, firstPart].join("");
+  return newStr;
+}
+
 const addAvatar = (file) => {
   return fs.writeFile(file);
 };
@@ -148,8 +156,9 @@ const sendMessage = async (nickname, text, id, roomId) => {
         );
         return toHistory, io.emit("message:fromServer");
       } else {
+        const result = await privateHistoryModel.findById(roomid);
         const toHistory = await privateHistoryModel.findOneAndUpdate(
-          { _id: roomId },
+          { _id: result ? roomId : reverseRoomId(roomid) },
           { $push: { messages: { ...message, nickname } } },
           { new: false }
         );
@@ -162,13 +171,14 @@ const sendMessage = async (nickname, text, id, roomId) => {
 };
 
 const deleteMessage = async (id, roomId) => {
+  const result = await privateHistoryModel.findById(roomid);
   try {
     !roomId
       ? await historyModel.findOneAndUpdate({
           $pull: { messages: { id: id } },
         })
       : await privateHistoryModel.findOneAndUpdate(
-          { _id: roomId },
+          { _id: result ? roomId : reverseRoomId(roomid) },
           { $pull: { messages: { id: id } } },
           { new: false }
         );
@@ -181,6 +191,7 @@ const deleteMessage = async (id, roomId) => {
 };
 
 const updateMessage = async (id, text, roomId) => {
+  const result = await privateHistoryModel.findById(roomid);
   try {
     !roomId
       ? await historyModel.updateOne(
@@ -188,7 +199,7 @@ const updateMessage = async (id, text, roomId) => {
           { $set: { "messages.$.text": text } }
         )
       : await privateHistoryModel.updateOne(
-          { _id: roomId, "messages.id": id },
+          { _id: result ? roomId : reverseRoomId(roomid), "messages.id": id },
           { $set: { "messages.$.text": text } }
         );
     return !roomId
@@ -200,6 +211,7 @@ const updateMessage = async (id, text, roomId) => {
 };
 
 const uploadImg = (userId, file, nickname, roomId) => {
+  const result = await privateHistoryModel.findById(roomid);
   cloudinary.uploader.upload(
     file,
     {
@@ -223,7 +235,7 @@ const uploadImg = (userId, file, nickname, roomId) => {
             { new: false }
           )
         : await privateHistoryModel.findOneAndUpdate(
-            { _id: roomId },
+            { _id: result ? roomId : reverseRoomId(roomid) },
             { $push: { messages: { ...message, nickname } } },
             { new: false }
           );
@@ -240,31 +252,17 @@ const uploadImg = (userId, file, nickname, roomId) => {
 
 const fetchPrivateHistory = async (roomid) => {
   if (roomid) {
-    function reverseRoomId(roomid) {
-      const firstPart = roomid.substr(0, roomid.length / 2 );
-      const secondPart = roomid.substr(roomid.length / 2);
-      newStr = [secondPart, firstPart].join("");
-      console.log("firstPart", firstPart);
-      console.log("secondPart", secondPart);
-      console.log("newStr", newStr);
-      return newStr;
-    }
-
     const result = await privateHistoryModel.findById(roomid);
     const reverseSearch = await privateHistoryModel.findById(
       reverseRoomId(roomid)
     );
     try {
-      console.log("result", result);
-      console.log("reverseSearch", reverseSearch);
-
       let response = null;
       result
         ? (response = result)
         : reverseSearch
         ? (response = reverseSearch)
         : (response = await privateHistoryModel.create({ _id: roomid }));
-      console.log("response", response);
       return response;
     } catch (e) {
       console.error(e);
