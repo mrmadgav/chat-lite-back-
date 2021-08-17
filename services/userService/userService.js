@@ -139,11 +139,6 @@ const sendMessage = async (nickname, text, id, roomId) => {
   const message = { text: text, date: prettyDate2(), id: id };
   if (nickname) {
     try {
-      // const result = await UserModel.findOneAndUpdate(
-      //   { nickname: nickname },
-      //   { $push: { messages: message } },
-      //   { new: false }
-      // );
       if (!roomId) {
         !historyModel.findOne() && historyModel.create();
         const toHistory = await historyModel.findOneAndUpdate(
@@ -245,8 +240,6 @@ const uploadImg = (userId, file, nickname, roomId) => {
 
 const fetchPrivateHistory = async (roomid) => {
   if (roomid) {
-    const result = await privateHistoryModel.findById(roomid);
-
     function reverseRoomId(roomid) {
       const firstPart = roomid.substr(0, roomid.length / 2 - 1);
       const secondPart = roomid.substr(roomid.length / 2);
@@ -254,16 +247,21 @@ const fetchPrivateHistory = async (roomid) => {
       return newStr;
     }
 
+    const result = await privateHistoryModel.findById(roomid);
     const reverseSearch = await privateHistoryModel.findById(
       reverseRoomId(roomid)
     );
     try {
+      console.log("result", result);
+      console.log("reverseSearch", reverseSearch);
+
       let response = null;
       result
         ? (response = result)
         : reverseSearch
         ? (response = reverseSearch)
         : (response = await privateHistoryModel.create({ _id: roomid }));
+      console.log(response);
       return response;
     } catch (e) {
       console.error(e);
