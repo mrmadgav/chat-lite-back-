@@ -144,6 +144,7 @@ const fetchMessages = async () => {
 };
 
 const sendMessage = async (nickname, text, id, roomId) => {
+  console.log("roomId в НАЧАЛЕ SEND MESSAGE", roomId);
   const message = { text: text, date: prettyDate2(), id: id };
   if (nickname) {
     try {
