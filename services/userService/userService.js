@@ -241,7 +241,7 @@ const uploadImg = (userId, file, nickname, roomId) => {
 const fetchPrivateHistory = async (roomid) => {
   if (roomid) {
     function reverseRoomId(roomid) {
-      const firstPart = roomid.substr(0, roomid.length / 2 - 1);
+      const firstPart = roomid.substr(0, roomid.length / 2 );
       const secondPart = roomid.substr(roomid.length / 2);
       newStr = [secondPart, firstPart].join("");
       console.log("firstPart", firstPart);
