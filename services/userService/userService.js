@@ -244,6 +244,7 @@ const fetchPrivateHistory = async (roomid) => {
       const firstPart = roomid.substr(0, roomid.length / 2 - 1);
       const secondPart = roomid.substr(roomid.length / 2);
       newStr = [secondPart, firstPart].join("");
+      console.log(newStr);
       return newStr;
     }
 
@@ -254,6 +255,8 @@ const fetchPrivateHistory = async (roomid) => {
     try {
       console.log("result", result);
       console.log("reverseSearch", reverseSearch);
+      console.log(roomid === result);
+      console.log(roomid === newStr);
 
       let response = null;
       result
@@ -261,7 +264,7 @@ const fetchPrivateHistory = async (roomid) => {
         : reverseSearch
         ? (response = reverseSearch)
         : (response = await privateHistoryModel.create({ _id: roomid }));
-      console.log(response);
+      console.log("response", response);
       return response;
     } catch (e) {
       console.error(e);
