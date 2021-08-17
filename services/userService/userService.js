@@ -215,6 +215,7 @@ const fetchPrivateHistory = async (roomid) => {
 
     function reverseRoomId(roomid) {
       const splitStr = roomid.split("", roomid.length / 2);
+      console.log(splitStr);
       newStr = [splitStr[1], splitStr[0]].join("");
       console.log("newStr", newStr);
       return newStr;
@@ -228,7 +229,11 @@ const fetchPrivateHistory = async (roomid) => {
       console.log("Обратный результат", reverseSearch);
 
       let response = null;
-      result ? response = result : reverseSearch ? response = reverseSearch : response = await privateHistoryModel.create({ _id: roomid });
+      result
+        ? (response = result)
+        : reverseSearch
+        ? (response = reverseSearch)
+        : (response = await privateHistoryModel.create({ _id: roomid }));
       // result | reverseSearch
       //   ? (response = result) | (response = reverseSearch)
       //   : (response = await privateHistoryModel.create({ _id: roomid }));
