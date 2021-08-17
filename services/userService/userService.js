@@ -214,7 +214,7 @@ const fetchPrivateHistory = async (roomid) => {
     const result = await privateHistoryModel.findById(roomid);
 
     function reverseRoomId(roomid) {
-      const splitStr = roomid.split("", roomid.length / 2);
+      const splitStr = roomid.split("", 2);
       console.log(splitStr);
       newStr = [splitStr[1], splitStr[0]].join("");
       console.log("newStr", newStr);
