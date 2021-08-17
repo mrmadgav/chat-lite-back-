@@ -249,11 +249,13 @@ const uploadImg = async (req, res, next) => {
   try {
     const nickname = String(req.body.nickname);
     const token = String(req.body.token);
+    const roomId = req.body.roomId;
+    console.log("roomId in upload img", roomId);
     const incomeToken = req.headers.authorization.slice(7);
     const user = await userService.findUserByToken(incomeToken);
     const filePath = req.file.path;
 
-    let imgUrl = await userService.uploadImg(user.id, filePath, user.nickname);
+    let imgUrl = await userService.uploadImg(user.id, filePath, user.nickname, roomId);
 
     return res.json({
       status: "Success",
