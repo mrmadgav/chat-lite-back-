@@ -155,15 +155,16 @@ const sendMessage = async (nickname, text, id, roomId) => {
           { new: false }
         );
         return toHistory, io.emit("message:fromServer");
-      } else {
-        const result = await privateHistoryModel.findById(roomid);
-        const toHistory = await privateHistoryModel.findOneAndUpdate(
-          { _id: result ? roomId : reverseRoomId(roomid) },
-          { $push: { messages: { ...message, nickname } } },
-          { new: false }
-        );
-        return toHistory, io.emit("privateMessage:fromServer");
-      }
+      } else
+        async () => {
+          const result = await privateHistoryModel.findById(roomid);
+          const toHistory = await privateHistoryModel.findOneAndUpdate(
+            { _id: result ? roomId : reverseRoomId(roomid) },
+            { $push: { messages: { ...message, nickname } } },
+            { new: false }
+          );
+          return toHistory, io.emit("privateMessage:fromServer");
+        };
     } catch (e) {
       console.error(e);
     }
