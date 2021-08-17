@@ -135,24 +135,31 @@ const fetchMessages = async () => {
   }
 };
 
-const sendMessage = async (nickname, text, id) => {
+const sendMessage = async (nickname, text, id, roomId) => {
   const message = { text: text, date: prettyDate2(), id: id };
-  console.log(message);
   if (nickname) {
     try {
-      const result = await UserModel.findOneAndUpdate(
-        { nickname: nickname },
-        { $push: { messages: message } },
-        { new: false }
-      );
-
-      !historyModel.findOne() && historyModel.create();
-      const toHistory = await historyModel.findOneAndUpdate(
-        { _id: "60f16573d79d8bd0cb45deac" },
-        { $push: { messages: { ...message, nickname } } },
-        { new: false }
-      );
-      return result, toHistory, io.emit("message:fromServer");
+      // const result = await UserModel.findOneAndUpdate(
+      //   { nickname: nickname },
+      //   { $push: { messages: message } },
+      //   { new: false }
+      // );
+      if (!roomId) {
+        !historyModel.findOne() && historyModel.create();
+        const toHistory = await historyModel.findOneAndUpdate(
+          { _id: "60f16573d79d8bd0cb45deac" },
+          { $push: { messages: { ...message, nickname } } },
+          { new: false }
+        );
+        return /*result,*/ toHistory, io.emit("message:fromServer");
+      } else {
+        const toHistory = await historyModel.findOneAndUpdate(
+          { _id: roomId },
+          { $push: { messages: { ...message, nickname } } },
+          { new: false }
+        );
+        return /*result,*/ toHistory, io.emit("privateMessage:fromServer");
+      }
     } catch (e) {
       console.error(e);
     }
@@ -234,9 +241,6 @@ const fetchPrivateHistory = async (roomid) => {
         : reverseSearch
         ? (response = reverseSearch)
         : (response = await privateHistoryModel.create({ _id: roomid }));
-      // result | reverseSearch
-      //   ? (response = result) | (response = reverseSearch)
-      //   : (response = await privateHistoryModel.create({ _id: roomid }));
       return response;
     } catch (e) {
       console.error(e);

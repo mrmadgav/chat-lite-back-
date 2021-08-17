@@ -167,7 +167,8 @@ const sendMessage = async (req, res, next) => {
     const nickname = String(req.body.nickname);
     const text = String(req.body.text);
     const id = String(req.body.id);
-    const result = await userService.sendMessage(nickname, text, id);
+    const roomId = String(req.body.roomId);
+    const result = await userService.sendMessage(nickname, text, id, roomId);
 
     return res.json({
       status: "success",
