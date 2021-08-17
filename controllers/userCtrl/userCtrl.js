@@ -247,14 +247,14 @@ const updateMessage = async (req, res, next) => {
 
 const uploadImg = async (req, res, next) => {
   try {
+    console.log(req.body.formData.file);
+    console.log(req.body.formData.path);
     const nickname = String(req.body.nickname);
     const token = String(req.body.token);
     const roomId = req.body.roomId;
     const incomeToken = req.headers.authorization.slice(7);
     const user = await userService.findUserByToken(incomeToken);
     const filePath = req.body.formData.file.path;
-    console.log(req.body.formData.file);
-    console.log(req.body.formData.path);
 
     let imgUrl = await userService.uploadImg(
       user.id,
