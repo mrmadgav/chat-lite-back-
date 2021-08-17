@@ -215,7 +215,8 @@ const fetchMessages = async (req, res, next) => {
 const deleteMessage = async (req, res, next) => {
   try {
     const id = req.body.id;
-    const result = await userService.deleteMessage(id);
+    const roomId = req.body.roomId
+    const result = await userService.deleteMessage(id, roomId);
     return res.json({
       status: "success",
       code: 200,

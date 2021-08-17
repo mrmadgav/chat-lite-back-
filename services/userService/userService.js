@@ -136,7 +136,6 @@ const fetchMessages = async () => {
 };
 
 const sendMessage = async (nickname, text, id, roomId) => {
-  console.log("roomId in UserService", roomId);
   const message = { text: text, date: prettyDate2(), id: id };
   if (nickname) {
     try {
@@ -152,14 +151,14 @@ const sendMessage = async (nickname, text, id, roomId) => {
           { $push: { messages: { ...message, nickname } } },
           { new: false }
         );
-        return /*result,*/ toHistory, io.emit("message:fromServer");
+        return toHistory, io.emit("message:fromServer");
       } else {
         const toHistory = await privateHistoryModel.findOneAndUpdate(
           { _id: roomId },
           { $push: { messages: { ...message, nickname } } },
           { new: false }
         );
-        return /*result,*/ toHistory, io.emit("privateMessage:fromServer");
+        return toHistory, io.emit("privateMessage:fromServer");
       }
     } catch (e) {
       console.error(e);
@@ -167,12 +166,20 @@ const sendMessage = async (nickname, text, id, roomId) => {
   }
 };
 
-const deleteMessage = async (id) => {
+const deleteMessage = async (id, roomId) => {
   try {
-    const result = await historyModel.findOneAndUpdate({
-      $pull: { messages: { id: id } },
-    });
-    return io.emit("DeletingMessage");
+    !roomId
+      ? await historyModel.findOneAndUpdate({
+          $pull: { messages: { id: id } },
+        })
+      : await privateHistoryModel.findOneAndUpdate(
+          { _id: roomId },
+          { $pull: { messages: { id: id } } },
+          { new: false }
+        );
+    return !roomId
+      ? io.emit("DeletingMessage")
+      : io.emit("PrivateDeletingMessage");
   } catch (e) {
     console.error(e);
   }
