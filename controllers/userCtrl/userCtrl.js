@@ -233,7 +233,8 @@ const updateMessage = async (req, res, next) => {
     console.log(req.body);
     const id = req.body.id;
     const text = req.body.text;
-    const result = await userService.updateMessage(id, text);
+    const roomId = req.body.roomId;
+    const result = await userService.updateMessage(id, text, roomId);
     return res.json({
       status: "success",
       code: 200,

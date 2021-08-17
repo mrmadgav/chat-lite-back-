@@ -166,7 +166,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
   }
 };
 
-const deleteMessage = async (id, roomId) => {  
+const deleteMessage = async (id, roomId) => {
   try {
     !roomId
       ? await historyModel.findOneAndUpdate({
@@ -185,13 +185,20 @@ const deleteMessage = async (id, roomId) => {
   }
 };
 
-const updateMessage = async (id, text) => {
+const updateMessage = async (id, text, roomId) => {
   try {
-    const result = await historyModel.updateOne(
-      { _id: "60f16573d79d8bd0cb45deac", "messages.id": id },
-      { $set: { "messages.$.text": text } }
-    );
-    return io.emit("User edit message");
+    !roomId
+      ? await historyModel.updateOne(
+          { _id: "60f16573d79d8bd0cb45deac", "messages.id": id },
+          { $set: { "messages.$.text": text } }
+        )
+      : await privateHistoryModel.updateOne(
+          { _id: roomId, "messages.id": id },
+          { $set: { "messages.$.text": text } }
+        );
+    return !roomId
+      ? io.emit("User edit message")
+      : io.emit("User edit private message");
   } catch (e) {
     console.error(e);
   }
