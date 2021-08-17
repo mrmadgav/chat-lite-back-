@@ -228,9 +228,10 @@ const fetchPrivateHistory = async (roomid) => {
       console.log("Обратный результат", reverseSearch);
 
       let response = null;
-      result | reverseSearch
-        ? (response = result) | (response = reverseSearch)
-        : (response = await privateHistoryModel.create({ _id: roomid }));
+      result ? response = result : reverseSearch ? response = reverseSearch : response = await privateHistoryModel.create({ _id: roomid });
+      // result | reverseSearch
+      //   ? (response = result) | (response = reverseSearch)
+      //   : (response = await privateHistoryModel.create({ _id: roomid }));
       return response;
     } catch (e) {
       console.error(e);
