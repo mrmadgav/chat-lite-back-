@@ -167,6 +167,8 @@ const sendMessage = async (nickname, text, id, roomId) => {
 };
 
 const deleteMessage = async (id, roomId) => {
+  console.log("id in DeleteService", id);
+  console.log("roomId in DeleteService", roomId);
   try {
     !roomId
       ? await historyModel.findOneAndUpdate({
