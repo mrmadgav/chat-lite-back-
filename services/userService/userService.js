@@ -154,7 +154,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
         );
         return /*result,*/ toHistory, io.emit("message:fromServer");
       } else {
-        const toHistory = await historyModel.findOneAndUpdate(
+        const toHistory = await privateHistoryModel.findOneAndUpdate(
           { _id: roomId },
           { $push: { messages: { ...message, nickname } } },
           { new: false }
