@@ -212,12 +212,24 @@ const uploadImg = (userId, file, nickname, id) => {
 const fetchPrivateHistory = async (roomid) => {
   if (roomid) {
     const result = await privateHistoryModel.findById(roomid);
+    console.log("Тип результата с бэка", typeof result);
+    
+    function reverseRoomId(roomid) {
+      const splitStr = roomid.split("", roomid.length / 2);
+      newStr = splitStr.reverse().join("");
+      console.log("newStr", newStr);
+      return newStr;
+    }
+
+    const reverseSearch = await privateHistoryModel.findById(
+      reverseRoomId(roomid)
+    );
     try {
       let response = null;
-      result
-        ? (response = result)
+      result | reverseSearch
+        ? (response = result) | (response = reverseSearch)
         : (response = await privateHistoryModel.create({ _id: roomid }));
-      return response, { result: result };
+      return response;
     } catch (e) {
       console.error(e);
     }

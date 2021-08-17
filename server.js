@@ -25,13 +25,6 @@ io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
   socket.broadcast.emit("user:join", socket.id);
 
-  // socket.on("message:send", (data) => {
-  //   const dateMessage = prettyDate2();
-  //   const { nickname, text, id } = data;
-  //   const newData = { nickname, text, id, dateMessage };
-  //   socket.broadcast.emit("message:fromServer", newData);
-  // });
-
   socket.on("typing", (data) => {
     const { user, typing } = data;
     socket.broadcast.emit("userTyping", user, typing);
@@ -39,12 +32,9 @@ io.on("connection", (socket) => {
   socket.on("stopTyping", () => {
     socket.broadcast.emit("userStoppedTyping");
   });
-  // socket.on("message:delete", (id) => {
-  //   socket.broadcast.emit("DeletingMessage", id);
-  //   // socket.broadcast.emit("DeletingMessage", id);
-  // });
-  // socket.on("message:edited", () => {
-  //   socket.broadcast.emit("User edit message");
+  // socket.on("direct", (socket) => {
+  //   socket.join("privateRoom");
+  //   socket.broadcast.emit("user joined direct messages");
   // });
 });
 
