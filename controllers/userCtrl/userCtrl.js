@@ -173,7 +173,7 @@ const sendMessage = async (req, res, next) => {
     return res.json({
       status: "success",
       code: 200,
-      data: "message have sent",
+      data: { "message have sent": result },
     });
   } catch (e) {
     next(e);
