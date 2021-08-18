@@ -23,6 +23,7 @@ const io = socketIO(server, { transports: ["websocket"] });
 
 io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
+  socket.join(socket.id);
   socket.broadcast.emit("user:join", socket.id);
 
   socket.on("typing", (data) => {
@@ -32,8 +33,7 @@ io.on("connection", (socket) => {
   socket.on("stopTyping", () => {
     socket.broadcast.emit("userStoppedTyping");
   });
-  const clients = socket.clients();
-  console.log(clients);
+
   // socket.on("direct", (roomId) => {
   //   socket.join(roomId);
   //   // socket.broadcast.emit("user joined direct messages");
