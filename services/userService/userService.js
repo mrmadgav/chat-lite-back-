@@ -158,12 +158,13 @@ const sendMessage = async (nickname, text, id, roomId) => {
       }
       if (roomId) {
         const result = await privateHistoryModel.findById(roomId);
+        const id = result ? roomId : reverseRoomId(roomId);
         const toHistory = await privateHistoryModel.findOneAndUpdate(
-          { _id: result ? roomId : reverseRoomId(roomId) },
+          { _id: id },
           { $push: { messages: { ...message, nickname } } },
           { new: false }
         );
-        return toHistory, io.emit("privateMessage:fromServer", _id);
+        return toHistory, io.emit("privateMessage:fromServer", id);
       }
     } catch (e) {
       console.error(e);
