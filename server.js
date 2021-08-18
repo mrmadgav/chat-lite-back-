@@ -32,9 +32,11 @@ io.on("connection", (socket) => {
   socket.on("stopTyping", () => {
     socket.broadcast.emit("userStoppedTyping");
   });
-  // socket.on("direct", (socket) => {
-  //   socket.join("privateRoom");
-  //   socket.broadcast.emit("user joined direct messages");
+  const clients = socket.clients();
+  console.log(clients);
+  // socket.on("direct", (roomId) => {
+  //   socket.join(roomId);
+  //   // socket.broadcast.emit("user joined direct messages");
   // });
 });
 
