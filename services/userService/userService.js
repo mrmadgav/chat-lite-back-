@@ -17,9 +17,11 @@ cloudinary.config({
 
 //Функция проверки на перевернутый номер комнаты(важно!)
 function reverseRoomId(roomId) {
-  const firstPart = roomId.substr(0, roomId.length / 2);
-  const secondPart = roomId.substr(roomId.length / 2);
-  newStr = [secondPart, firstPart].join("");
+  if (roomId == !null) {
+    const firstPart = roomId.substr(0, roomId.length / 2);
+    const secondPart = roomId.substr(roomId.length / 2);
+    newStr = [secondPart, firstPart].join("");
+  } else newStr = "";
   return newStr;
 }
 
