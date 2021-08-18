@@ -23,7 +23,6 @@ const io = socketIO(server, { transports: ["websocket"] });
 
 io.on("connection", (socket) => {
   console.info("Socket connected", socket.id);
-  socket.join(socket.id);
   socket.broadcast.emit("user:join", socket.id);
 
   socket.on("typing", (data) => {
