@@ -163,7 +163,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
           { $push: { messages: { ...message, nickname } } },
           { new: false }
         );
-        return toHistory, io.emit("privateMessage:fromServer");
+        return toHistory, io.broadcast.emit("privateMessage:fromServer", _id);
       }
     } catch (e) {
       console.error(e);
