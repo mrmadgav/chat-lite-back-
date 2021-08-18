@@ -36,6 +36,7 @@ io.on("connection", (socket) => {
 
   socket.on("connect to room", (roomId) => {
     socket.join(roomId);
+    console.log(socket.rooms);
   });
 });
 
