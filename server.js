@@ -34,10 +34,9 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("userStoppedTyping");
   });
 
-  // socket.on("direct", (roomId) => {
-  //   socket.join(roomId);
-  //   // socket.broadcast.emit("user joined direct messages");
-  // });
+  socket.on("connect to room", (roomId) => {
+    socket.join(roomId);
+  });
 });
 
 function getSocketIo() {
