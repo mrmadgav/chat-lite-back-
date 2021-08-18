@@ -144,7 +144,6 @@ const fetchMessages = async () => {
 };
 
 const sendMessage = async (nickname, text, id, roomId) => {
-  console.log("roomId в НАЧАЛЕ SEND MESSAGE", roomId);
   const message = { text: text, date: prettyDate2(), id: id };
   if (nickname) {
     try {
@@ -158,12 +157,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
         return toHistory, io.emit("message:fromServer");
       }
       if (roomId) {
-        console.log(
-          "ЗАШЛИ В ВЫБОР АЙДИШНИКА КОМНАТЫ, КУДА ОТПРАВЛЯТЬ СООБЩЕНИЕ"
-        );
         const result = await privateHistoryModel.findById(roomId);
-        console.log("RESULT", result);
-        console.log("reverseRoomId(roomid)", reverseRoomId(roomId));
         const toHistory = await privateHistoryModel.findOneAndUpdate(
           { _id: result ? roomId : reverseRoomId(roomId) },
           { $push: { messages: { ...message, nickname } } },
