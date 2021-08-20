@@ -205,7 +205,7 @@ const updateMessage = async (id, text, roomId) => {
         );
     return !roomId
       ? io.emit("User edit message")
-      : io.emit("User edit private message", roomId);
+      : io.emit("privateMessage:fromServer", roomId);
   } catch (e) {
     console.error(e);
   }
@@ -245,7 +245,7 @@ const uploadImg = (userId, file, nickname, roomId) => {
         toHistory,
         !roomId
           ? io.emit("message:fromServer")
-          : io.emit("privateMessage:fromServer")
+          : io.emit("privateMessage:fromServer", roomId)
       );
     }
   );
