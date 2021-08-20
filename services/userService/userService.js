@@ -245,7 +245,7 @@ const uploadImg = (userId, file, nickname, roomId) => {
         toHistory,
         !roomId
           ? io.emit("message:fromServer")
-          : io.emit("privateMessage:fromServer", roomId)
+          : io.emit("privateMessage:fromServer", roomId, nickname)
       );
     }
   );
