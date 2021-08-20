@@ -125,6 +125,7 @@ const logout = async (req, res, next) => {
     const onLine = false;
     await userService.setOnline(id, onLine);
     await userService.updateUserToken(id, null);
+    io.emit("user:logout");
     return res.json({
       status: "success",
       code: 200,
