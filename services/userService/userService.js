@@ -183,9 +183,7 @@ const deleteMessage = async (id, roomId) => {
           { $pull: { messages: { id: id } } },
           { new: false }
         );
-    return !roomId
-      ? io.emit("DeletingMessage")
-      : io.emit("PrivateDeletingMessage");
+    return io.emit("DeletingMessage");
   } catch (e) {
     console.error(e);
   }
@@ -203,9 +201,7 @@ const updateMessage = async (id, text, roomId) => {
           { _id: result ? roomId : reverseRoomId(roomId), "messages.id": id },
           { $set: { "messages.$.text": text } }
         );
-    return !roomId
-      ? io.emit("User edit message")
-      : io.emit("User edit private message");
+    return io.emit("User edit message");
   } catch (e) {
     console.error(e);
   }
