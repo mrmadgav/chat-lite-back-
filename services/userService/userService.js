@@ -3,7 +3,6 @@ const { historyModel, privateHistoryModel } = require("../../models");
 const prettyDate2 = require("../../helpers/time");
 const cloudinary = require("cloudinary").v2;
 const { nanoid } = require("nanoid");
-// const io = require("../../server");
 
 const server = require("../../server");
 const io = server.getSocketIo();
