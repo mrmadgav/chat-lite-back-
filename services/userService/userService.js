@@ -183,7 +183,9 @@ const deleteMessage = async (id, roomId) => {
           { $pull: { messages: { id: id } } },
           { new: false }
         );
-    return io.emit("DeletingMessage");
+    return !roomId
+      ? io.emit("message:fromServer")
+      : io.emit("privateMessage:fromServer");
   } catch (e) {
     console.error(e);
   }
