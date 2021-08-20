@@ -185,7 +185,7 @@ const deleteMessage = async (id, roomId) => {
         );
     return !roomId
       ? io.emit("DeletingMessage")
-      : io.emit("privateMessage:fromServer");
+      : io.emit("privateMessage:fromServer", roomId);
   } catch (e) {
     console.error(e);
   }
@@ -205,7 +205,7 @@ const updateMessage = async (id, text, roomId) => {
         );
     return !roomId
       ? io.emit("User edit message")
-      : io.emit("privateMessage:fromServer");
+      : io.emit("User edit private message", roomId);
   } catch (e) {
     console.error(e);
   }
