@@ -214,7 +214,6 @@ const fetchMessages = async (req, res, next) => {
 };
 
 const deleteMessage = async (req, res, next) => {
-  console.log("req.body в Контроллере", req.body);
   try {
     const id = req.body.id;
     const roomId = req.body.roomId;
@@ -230,8 +229,7 @@ const deleteMessage = async (req, res, next) => {
 };
 
 const updateMessage = async (req, res, next) => {
-  try {
-    console.log(req.body);
+  try {  
     const id = req.body.id;
     const text = req.body.text;
     const roomId = req.body.roomId;
@@ -247,7 +245,7 @@ const updateMessage = async (req, res, next) => {
 };
 
 const uploadImg = async (req, res, next) => {
-  try {
+  try {    
     const incomeToken = req.headers.authorization.slice(7);
     const user = await userService.findUserByToken(incomeToken);
     const filePath = req.file.path;
