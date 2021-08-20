@@ -106,8 +106,8 @@ const login = async (req, res, next) => {
     await userService.setOnline(_id, onLine);
 
     const userNick = await userService.getuserNick(userId);
-    io.broadcast.emit("user:login", userNick);
-    
+    io.emit("user:login", userNick);
+
     return res.json({
       status: "Success",
       code: 200,
