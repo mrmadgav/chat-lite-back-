@@ -163,7 +163,7 @@ const sendMessage = async (nickname, text, id, roomId) => {
           { $push: { messages: { ...message, nickname } } },
           { new: false }
         );
-        return toHistory, io.emit("privateMessage:fromServer", id);
+        return toHistory, io.emit("privateMessage:fromServer", id, nickname);
       }
     } catch (e) {
       console.error(e);
@@ -245,7 +245,7 @@ const uploadImg = (userId, file, nickname, roomId) => {
         toHistory,
         !roomId
           ? io.emit("message:fromServer")
-          : io.emit("privateMessage:fromServer", roomId, nickname)
+          : io.emit("privateMessage:fromServer", roomId)
       );
     }
   );
