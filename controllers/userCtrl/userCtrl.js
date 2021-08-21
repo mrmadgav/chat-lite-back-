@@ -71,7 +71,7 @@ const createUser = async (req, res, next) => {
     await userService.updateUserToken(user._id, token);
     await userService.setOnline(user._id, true);
 
-    io.emit("user:login", userNick);
+    io.emit("user:login", nickname);
 
     res.status(201).json({
       status: "success",
