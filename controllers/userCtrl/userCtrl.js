@@ -52,15 +52,15 @@ const cloudAvatar = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
   const { email, password, nickname } = req.body;
-  // const userExist = await UserModel.findOne({ email });
-  // if (userExist) {
-  //   return res.status(409).json({
-  //     status: "error",
-  //     code: 409,
-  //     message: "Email is already in use",
-  //     data: "Conflict",
-  //   });
-  // }
+  const userExist = await UserModel.findOne({ email });
+  if (userExist) {
+    return res.status(409).json({
+      status: "error",
+      code: 409,
+      message: "Email is already in use",
+      data: "Conflict",
+    });
+  }
   try {
     await userService.createUser({ email, password, nickname });
 
