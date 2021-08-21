@@ -95,15 +95,15 @@ const login = async (req, res, next) => {
 
     const isPasswordValid = await user?.validPassword(password);
 
-    // if (!user || !isPasswordValid) {
-    //   //вернуть потом !isPasswordValid
-    //   return res.json({
-    //     status: "Error",
-    //     code: 501,
-    //     data: "Unauthorized",
-    //     message: "Email or password is wrong",
-    //   });
-    // }
+    if (!user || !isPasswordValid) {
+      //вернуть потом !isPasswordValid
+      return res.json({
+        status: "Error",
+        code: 501,
+        data: "Unauthorized",
+        message: "Email or password is wrong",
+      });
+    }
 
     const userId = user._id;
     const payload = { userId };
