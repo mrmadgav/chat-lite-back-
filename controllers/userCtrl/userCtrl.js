@@ -63,20 +63,25 @@ const createUser = async (req, res, next) => {
   }
   try {
     await userService.createUser({ email, password, nickname });
-    
-    const user = await userService.findUserByEmail(email);
-    const userId = user.id  
-    const payload = { userId };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "8h" });
-    await userService.updateUserToken(user._id, token);
-    await userService.setOnline(user._id, true);
 
-    io.emit("user:login", nickname);
+    // const user = await userService.findUserByEmail(email);
+    // const userId = user.id
+    // const payload = { userId };
+    // const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "8h" });
+    // await userService.updateUserToken(user._id, token);
+    // await userService.setOnline(user._id, true);
+
+    // io.emit("user:login", nickname);
 
     res.status(201).json({
       status: "success",
       code: 201,
-      data: { token: token, userId: user._id, email: email, nickname: nickname },
+      data: {
+        // token: token,
+        userId: user._id,
+        email: email,
+        nickname: nickname,
+      },
     });
   } catch (error) {
     next(error);
