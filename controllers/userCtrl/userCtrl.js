@@ -63,6 +63,13 @@ const createUser = async (req, res, next) => {
   }
   try {
     await userService.createUser({ email, password, nickname });
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "8h" });
+    const user = await userService.findUserByEmail(email);
+    await userService.updateUserToken(user._id, token);
+    await userService.setOnline(user._id, true);
+
+    io.emit("user:login", userNick);
+
     res.status(201).json({
       status: "success",
       code: 201,
@@ -229,7 +236,7 @@ const deleteMessage = async (req, res, next) => {
 };
 
 const updateMessage = async (req, res, next) => {
-  try {  
+  try {
     const id = req.body.id;
     const text = req.body.text;
     const roomId = req.body.roomId;
@@ -245,7 +252,7 @@ const updateMessage = async (req, res, next) => {
 };
 
 const uploadImg = async (req, res, next) => {
-  try {    
+  try {
     const incomeToken = req.headers.authorization.slice(7);
     const user = await userService.findUserByToken(incomeToken);
     const filePath = req.file.path;
