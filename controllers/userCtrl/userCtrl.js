@@ -63,6 +63,7 @@ const createUser = async (req, res, next) => {
   }
   try {
     await userService.createUser({ email, password, nickname });
+
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "8h" });
     const user = await userService.findUserByEmail(email);
     await userService.updateUserToken(user._id, token);
@@ -73,11 +74,7 @@ const createUser = async (req, res, next) => {
     res.status(201).json({
       status: "success",
       code: 201,
-      data: {
-        message: "Registration successful",
-        user: email,
-        nick: nickname,
-      },
+      data: { token: token, userId: user._id, email: email, nickname: nickname },
     });
   } catch (error) {
     next(error);
