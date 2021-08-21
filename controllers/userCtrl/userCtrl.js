@@ -97,7 +97,7 @@ const login = async (req, res, next) => {
 
     if (!user || !isPasswordValid) {
       //вернуть потом !isPasswordValid
-      return res.json({
+      return res.status(501).json({
         status: "Error",
         code: 501,
         data: "Unauthorized",
