@@ -8,7 +8,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  cors({ credentials: true, origin: "https://chat-lite-two.vercel.app" })
+  cors({ credentials: true, origin: "https://chat-lite-inky.vercel.app" })
 );
 
 const socketIO = require("socket.io");
