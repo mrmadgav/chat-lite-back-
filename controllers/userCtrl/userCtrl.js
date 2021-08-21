@@ -77,8 +77,6 @@ const createUser = async (req, res, next) => {
       status: "success",
       code: 201,
       data: {
-        // token: token,
-        userId: user._id,
         email: email,
         nickname: nickname,
       },
