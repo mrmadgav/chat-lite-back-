@@ -63,9 +63,11 @@ const createUser = async (req, res, next) => {
   }
   try {
     await userService.createUser({ email, password, nickname });
-
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "8h" });
+    
     const user = await userService.findUserByEmail(email);
+    const userId = user.id  
+    const payload = { userId };
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "8h" });
     await userService.updateUserToken(user._id, token);
     await userService.setOnline(user._id, true);
 
