@@ -26,8 +26,7 @@ io.on("connection", (socket) => {
   socket.broadcast.emit("user:join", socket.id);
 
   socket.on("typing", (data) => {
-    const { user, typing } = data;
-    socket.broadcast.emit("userTyping", user, typing);
+    socket.broadcast.emit("userTyping", data);
   });
   socket.on("stopTyping", () => {
     socket.broadcast.emit("userStoppedTyping");
